@@ -1,36 +1,40 @@
 const { Livro } = require("./livro");
-// Definição da classe Library
+
 class Biblioteca {
   constructor() {
-    this.livros = []; // Lista para armazenar livros
+    this.livros = [];
   }
 
-  // Função para adicionar um livro
   adicionarLivro(titulo, autor) {
-    if (
-      this.livros.some(
-        (livro) => livro.titulo === titulo && livro.autor === autor
-      )
-    ) {
+    const busca = this.encontrarLivroPeloTitulo(titulo);
+    let resultado = false;
+    for (let index = 0; index < busca.length; index++) {
+      if (busca[index].autor === autor) {
+        resultado = true;
+      }
+    }
+    if (resultado) {
       console.log(
         `Erro: O livro '${titulo}' por ${autor} já está na biblioteca!`
       );
+    } else if (!titulo || !autor) {
+      console.log("Valores Inválidos");
     } else {
       this.livros.push(new Livro(titulo, autor));
       console.log(`Livro adicionado: ${titulo} por ${autor}`);
     }
   }
 
-  // Função para buscar livros pelo título
   encontrarLivroPeloTitulo(titulo) {
+    const resultados = [];
     for (let index = 0; index < this.livros.length; index++) {
-      if (this.livros[index].titulo === titulo) {
-        return this.livros[index];
+      if (this.livros[index].titulo.includes(titulo)) {
+        resultados.push(this.livros[index]);
       }
     }
+    return resultados;
   }
 
-  // Função para listar todos os livros
   listarLivros() {
     console.log("Lista de todos os livros:");
     for (let index = 0; index < this.livros.length; index++) {
@@ -41,7 +45,6 @@ class Biblioteca {
   }
 }
 
-// Exportação da classe Library
 module.exports = {
   Biblioteca,
 };
