@@ -21,7 +21,6 @@ class Biblioteca {
       console.log("Valores Inválidos");
     } else {
       this.livros.push(new Livro(titulo, autor));
-      console.log(`Livro adicionado: ${titulo} por ${autor}`);
     }
   }
 

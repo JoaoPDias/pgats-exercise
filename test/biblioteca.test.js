@@ -23,4 +23,19 @@ describe("Biblioteca", () => {
       assert.equal(biblioteca.livros.length, 1);
     });
   });
+  describe("#EncontrarLivroPorTitulo", () => {
+    it("deve encontrar um livro por titulo", () => {
+      const biblioteca = new Biblioteca();
+      biblioteca.adicionarLivro("Book Title", "Author Name");
+      const resultado = biblioteca.encontrarLivroPeloTitulo("Book");
+      assert.equal(resultado.length, 1);
+    });
+
+    it("não deve encontrar um livro por titulo", () => {
+      const biblioteca = new Biblioteca();
+      biblioteca.adicionarLivro("Book Title", "Author Name");
+      const resultado = biblioteca.encontrarLivroPeloTitulo("Test");
+      assert.equal(resultado.length, 0);
+    });
+  });
 });
